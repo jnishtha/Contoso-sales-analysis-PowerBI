@@ -34,19 +34,28 @@ The dashboard enables businesses to track **key performance indicators (KPIs)**,
 Some of the important **DAX measures** implemented:  
 
 ```DAX
-- Net Profit = [Total Sales] - [Total Cost] - [Discount Amount] - [Return Amount]
+- Total Cost = SUM(sales[Total Cost])
+- Total sales = SUM(sales[Sales Amount])
+- Total Expenses = [Discoun Amount]+[Return Amount]+[Total Cost]
+- Net Profit = [Total sales] - [Total Expenses]
 - Net Profit Running Total =
-- CALCULATE(
-    [Net Profit],
-    FILTER(ALLSELECTED(Date), Date <= MAX(Date))
+-CALCULATE(
+	[Net profit],
+	FILTER(
+		ALLSELECTED('Calendar'[Date]),
+		ISONORAFTER('Calendar'[Date], MAX('Calendar'[Date]), DESC)
+	)
 )
-- YOY Net Profits =
-- CALCULATE([Net Profit], DATEADD(Date[Date], -1, YEAR))
-- Sales Quantity = SUM(FactSales[Quantity])
-- Discount Quantity = SUM(FactSales[DiscountQty])
-- Return Amount = SUM(FactSales[ReturnAmt])
-- Total Expenses = SUM(FactFinance[Expenses])
-- Order Count = DISTINCTCOUNT(FactSales[OrderID])
+- PY Net Profits = CALCULATE([Net profit],DATEADD('Calendar'[Date],-1,YEAR))
+- Average Order Amount = DIVIDE([Total sales],[Order Count])
+- sales Quantity = SUM(sales[Sales Quantity])
+- Discoun Amount = SUM(sales[Discount Amount])
+- Discount Quantity = sum(sales[Discount Quantity])
+- Return Amount = SUM(sales[Return Amount])
+- Return Quantity = SUM(sales[Return Quantity])
+- Order Count = DISTINCTCOUNT(sales[Sales Key])
+- YOY Net Profits =[Net profit]-[PY Net Profits]
+- YOY Net Profit % = DIVIDE([YOY Net Profits],[PY Net Profits])
 ```
 
 
