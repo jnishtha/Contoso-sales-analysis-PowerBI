@@ -1,4 +1,5 @@
 # Contoso-sales-analysis-PowerBI
+![Dashboard Page 1](screenshot1.png)
 ## 📌 Project Overview
 
 This project is an **interactive Power BI dashboard** that provides insights into **sales, profit, discounts, and returns** across multiple regions, products, and time periods.
@@ -48,9 +49,7 @@ Some of the important **DAX measures** implemented:
 - Order Count = DISTINCTCOUNT(FactSales[OrderID])
 ```
 
-## 🖼️ Dashboard Screenshots
-![Dashboard Page 1](screenshot1.png)
-![Dashboard Page 2](screenshot2.png)
+
 
 ## 🛠️ Tech Used
 - Power BI  
